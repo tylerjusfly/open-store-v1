@@ -20,7 +20,7 @@ export default async function Main({ children }: MainProps) {
   const subdomain = extractSubdomain("fanshop.sellit.app");
 
   try {
-    const data = (await serverRequest(`store/public?storename=${subdomain}`, "GET", null)) as APIResponse<IStoreDetails>;
+    const data: APIResponse<IStoreDetails> = await serverRequest(`store/public?storename=${subdomain}`, "GET", null, "no-cache");
 
     return (
       <StoreProvider store={data?.result}>
@@ -34,7 +34,6 @@ export default async function Main({ children }: MainProps) {
   } catch (error) {
     console.log("err ==>", error);
     <main className="">
-      
       <h1>Error Page</h1>
     </main>;
   }
