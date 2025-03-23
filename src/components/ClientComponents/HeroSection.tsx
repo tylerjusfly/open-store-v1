@@ -13,10 +13,10 @@ const HeroSection = () => {
         <h1 className="text-4xl font-bold  mt-2 capitalize">Welcome to {store?.storename}</h1>
         <p className="text-lg text-gray-600 mt-3">{store?.hero_text}</p>
         <button
-          className={cn(
-            "mt-6 cursor-pointer text-white px-6 py-3 rounded-lg text-lg font-semibold shadow-md",
-            store?.customization?.main_color ? `bg-[${store?.customization?.main_color}]` : "bg-[#7367f0]"
-          )}
+          style={{
+            backgroundColor: store?.customization?.main_color || "#7367f0",
+          }}
+          className={`mt-6 cursor-pointer text-white px-6 py-3 rounded-lg text-lg font-semibold shadow-md`}
         >
           View Our Products
         </button>
@@ -24,7 +24,7 @@ const HeroSection = () => {
 
       <div className="mt-10 md:mt-0">
         {store?.customization?.hero_svg ? (
-          store.customization.hero_svg
+          <img src={store.customization.hero_svg} alt="Illustration" className="w-64 md:w-80" />
         ) : (
           <img src="/hero-img.svg" alt="Illustration" className="w-64 md:w-80" />
         )}

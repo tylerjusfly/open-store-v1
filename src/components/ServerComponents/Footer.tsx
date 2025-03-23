@@ -14,36 +14,63 @@ export default function Footer({store}: FooterProps) {
             <ul className="space-y-2">
               {/* <li><a href="#" className="hover:text-gray-400">What is VPN?</a></li> */}
               {/* <li><a href="#" className="hover:text-gray-400">Check security</a></li> */}
-              <li><a href="#" className="hover:text-gray-400">Track Your Order</a></li>
+              <li>
+                <a href="#" className="hover:text-gray-400">
+                  Track Your Order
+                </a>
+              </li>
             </ul>
           </div>
-  
+
           {/* Navigation Section */}
           <div>
             <h3 className="text-lg font-semibold mb-3">Navigation</h3>
             <ul className="space-y-2">
-              <li><a href="#" className="hover:text-gray-400">Reviews</a></li>
-              <li><a href="#" className="hover:text-gray-400">Tickets</a></li>
-              <li><a href="#" className="hover:text-gray-400">Terms</a></li>
+              <li>
+                <a href="#" className="hover:text-gray-400">
+                  Reviews
+                </a>
+              </li>
+              <li>
+                <a href="#" className="hover:text-gray-400">
+                  Tickets
+                </a>
+              </li>
+              <li>
+                <a href="#" className="hover:text-gray-400">
+                  Terms
+                </a>
+              </li>
             </ul>
           </div>
-  
+
           {/* Subscription Section */}
           <div>
             <h3 className="text-lg font-semibold font-mono mb-3">Subscribe</h3>
             <div className="space-y-3">
               <input
+                style={
+                  {
+                    // backgroundColor: store?.customization?.main_color || "#7367f0",
+                    // borderColor: store?.customization?.main_color || "#7367f0",
+                  }
+                }
                 type="email"
                 placeholder="Email"
-                className="w-full px-4 py-2 bg-gray-800 text-white rounded-md border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full px-4 py-2 bg-gray-800 border-gray-800 text-white rounded-md border focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
-              <button className={`w-full px-4 py-2 text-white rounded-md transition ${store?.customization?.main_color ? `bg-[${store?.customization?.main_color}]` : "bg-[#7367f0]"}`}>
+              <button
+                style={{
+                  backgroundColor: store?.customization?.main_color || "#7367f0",
+                }}
+                className={`w-full px-4 py-2 text-white rounded-md transition`}
+              >
                 Subscribe
               </button>
             </div>
           </div>
         </div>
-  
+
         {/* Footer Bottom */}
         <div className="flex justify-between items-center mt-8 border-t border-gray-700 pt-4">
           <div className="flex space-x-4">
@@ -51,7 +78,7 @@ export default function Footer({store}: FooterProps) {
             <div className="w-16 h-4 bg-gray-800 rounded-md"></div>
             <div className="w-16 h-4 bg-gray-800 rounded-md"></div>
           </div>
-  
+
           {/* Language Selector */}
           <div className="flex items-center space-x-2">
             <span className="text-lg font-bold font-mono">🌍Powered By SELLIT</span>

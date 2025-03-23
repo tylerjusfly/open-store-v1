@@ -22,13 +22,13 @@ export default async function Main({ children }: MainProps) {
   try {
     const data: APIResponse<IStoreDetails> = await serverRequest(`store/public?storename=${subdomain}`, "GET", null, "no-cache");
 
+    // console.log(data, "data");
+
     return (
       <StoreProvider store={data?.result}>
         <Header store={data.result} />
-        {
-        children
-      }
-      <Footer store={data.result}/>
+        {children}
+        <Footer store={data.result} />
       </StoreProvider>
     );
   } catch (error) {

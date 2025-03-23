@@ -29,9 +29,10 @@ export default function Header({store}: HeaderProps) {
 
       {/* Right Side - Action Button */}
       <button
-        className={`px-5 py-2 text-white rounded-md ${
-          store?.customization?.main_color ? `bg-[${store?.customization?.main_color}]` : "bg-[#7367f0]"
-        } transition`}
+        style={{
+          backgroundColor: store?.customization?.main_color || "#7367f0",
+        }}
+        className={`px-5 py-2 text-white rounded-md transition`}
       >
         + Create Ticket
       </button>
