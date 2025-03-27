@@ -1,9 +1,8 @@
-import React from 'react'
+import AllProducts from "@/components/ClientComponents/products/AllProducts";
+import React from "react";
 
 const Products = () => {
-  return (
-    <div>Products</div>
-  )
-}
+  return <AllProducts />;
+};
 
-export default Products
+export default Products;
