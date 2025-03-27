@@ -20,3 +20,15 @@ export interface IPaging {
   totalpages: number;
   itemsPerPage: number;
 }
+
+export type IProductsDetails = {
+  id: string;
+  name: string;
+  image_src: string;
+  amount: number;
+  stock: number;
+  description: string;
+  product_type: string;
+  max_purchase: number;
+  min_purchase: number;
+};
