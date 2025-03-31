@@ -1,11 +1,14 @@
+import { IpaymentMethod } from "@/types/store";
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
 
 type IStoreItem = {
   id: string;
-  name: string
-  quantity: number
-  cost: number
+  name: string;
+  quantity: number;
+  cost: number;
+  paymentMethod?: IpaymentMethod;
+  buyer_email?: string;
 };
 
 interface StoreState {
@@ -34,6 +37,5 @@ export const useAppStore = create<AppStore>()(
     }
   )
 );
-
 
 export const getItemFromStore = () => useAppStore((state) => state.item);

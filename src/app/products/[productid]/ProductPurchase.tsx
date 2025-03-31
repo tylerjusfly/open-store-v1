@@ -117,7 +117,7 @@ type ProductModalProps = {
 const ProductModal = ({ data, setOpenErrorModalText }: ProductModalProps) => {
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-slate-900/20 backdrop-blur">
-      <div className="bg-white p-6 rounded-lg shadow-lg w-96 text-center relative">
+      <div className="bg-white p-10 rounded-lg shadow-lg w-96 text-center relative">
         {/* Message */}
         <p className="text-gray-600 font-semibold font-mono text-lg">{data}</p>
 

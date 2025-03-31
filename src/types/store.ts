@@ -11,3 +11,5 @@ export type IStoreDetails = {
     main_color : string
     hero_svg: string | null
   }
+
+export type IpaymentMethod = "stripe" | "cashapp" | "coinbase" | "paypal" | "hoodpay";
