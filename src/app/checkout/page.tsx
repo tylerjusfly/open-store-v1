@@ -1,6 +1,8 @@
 "use client";
 
+import { useStore } from "@/components/Providers/StoreContext";
 import { serverRequest } from "@/configs/serverApi";
+import { hexToRgba } from "@/configs/utils";
 import { IpaymentMethod } from "@/types/store";
 import IconifyIcon from "@/uis/Icon";
 import ErrorModalWithRouter from "@/uis/Icon/modals/ErrorModalWithRouter";
@@ -12,6 +14,7 @@ import React, { Fragment, useState } from "react";
 
 const CheckoutPage = () => {
   const router = useRouter();
+  const { store } = useStore();
   const [paymentMethod, setPaymentMethod] = useState<IpaymentMethod | null>(null);
   const cartProduct = getItemFromStore();
   const setItemToCart = useAppStore((state) => state.setStoreItem);
@@ -73,9 +76,14 @@ const CheckoutPage = () => {
 
   return (
     <Fragment>
-      <div className="flex mx-6 items-center justify-center">
-        <div className="relative w-full bg-gray-100 p-6 border border-gray-100">
-          <div className="flex justify-between items-center">
+      <div
+        style={{
+          backgroundImage: `linear-gradient(to right, #f7fafc, ${hexToRgba(store?.customization?.main_color || "#7367f0", 0.7)})`,
+        }}
+        className="flex m-0 md:mx-6 items-center justify-center"
+      >
+        <div className="relative w-full">
+          <div className="flex justify-between items-center p-4">
             <button
               onClick={() => {
                 router.back();
@@ -135,7 +143,7 @@ const CheckoutPage = () => {
                   value={email}
                   type="email"
                   placeholder="Email"
-                  className="w-full p-3 border border-gray-300 rounded"
+                  className="w-full p-3 outline-none border border-gray-300 rounded"
                 />
               </div>
 
@@ -143,10 +151,9 @@ const CheckoutPage = () => {
                 onClick={pushtoPaymentScreen}
                 disabled={paymentMethod === null}
                 style={{
-                  // backgroundColor: store?.customization?.main_color || "#7367f0",
-                  backgroundColor: "#7367f0",
+                  backgroundImage: `linear-gradient(to left, ${store?.customization?.main_color || "#7367f0"} ,#000)`,
                 }}
-                className={`w-full disabled:cursor-not-allowed flex cursor-pointer justify-center gap-4 px-4 py-2 text-white rounded-md transition`}
+                className={`w-full disabled:cursor-not-allowed flex cursor-pointer justify-center gap-4 px-4 py-2 text-white rounded-full transition`}
               >
                 <span className="self-center font-bold"> Proceed to payment with {paymentMethod}</span>
                 {proceeding ? (

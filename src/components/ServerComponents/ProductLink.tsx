@@ -1,15 +1,15 @@
-import { cn } from '@/configs/utils'
-import { IProducts } from '@/types/product'
-import { IStoreDetails } from '@/types/store'
-import Link from 'next/link'
-import React from 'react'
+import { cn, hexToRgba } from "@/configs/utils";
+import { IProducts } from "@/types/product";
+import { IStoreDetails } from "@/types/store";
+import Link from "next/link";
+import React from "react";
 
 type ProductLinkProps = {
-    product: IProducts
-    store: IStoreDetails
-}
+  product: IProducts;
+  store: IStoreDetails;
+};
 
-const ProductLink = ({product, store}: ProductLinkProps) => {
+const ProductLink = ({ product, store }: ProductLinkProps) => {
   return (
     <Link
       href={`/products/${product.id}`}
@@ -18,10 +18,17 @@ const ProductLink = ({product, store}: ProductLinkProps) => {
         backgroundColor: store?.customization?.main_color || "#7367f0",
       }}
       key={product.id}
-      className={cn("bg-[#0D0A1A]  border-2 rounded-lg p-5 shadow-lg relative")}
+      className={cn("border-2 rounded-lg p-5 shadow-lg relative")}
     >
       {/* Rating badge */}
-      <div className="absolute top-2 left-2 bg-purple-700 text-white text-xs px-2 py-1 rounded-md">⭐ {product?.rating || 0}</div>
+      <div
+        style={{
+          background: hexToRgba("#555", 0.7),
+        }}
+        className="absolute top-2 left-2 text-white text-xs px-2 py-1 rounded-md"
+      >
+        ⭐ {product?.rating || 0}
+      </div>
 
       {/* Product Image */}
       <img src={product.image_src || "/attachment.png"} alt={product.name} className="w-full h-40 object-contain rounded-md" />
@@ -36,6 +43,6 @@ const ProductLink = ({product, store}: ProductLinkProps) => {
       </span>
     </Link>
   );
-}
+};
 
-export default ProductLink
+export default ProductLink;

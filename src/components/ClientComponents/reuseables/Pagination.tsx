@@ -4,15 +4,11 @@ interface PaginationProps {
   currentPage: number;
   totalPages: number;
   onPageChange: (page: number) => void;
-  limit: number
+  limit: number;
+  totalItems: number;
 }
 
-const Pagination: React.FC<PaginationProps> = ({
-  currentPage,
-  totalPages,
-  onPageChange,
-  limit
-}) => {
+const Pagination: React.FC<PaginationProps> = ({ currentPage, totalPages, onPageChange, limit, totalItems }) => {
   const handlePageChange = (page: number) => {
     if (page >= 1 && page <= totalPages) {
       onPageChange(page);
@@ -26,7 +22,7 @@ const Pagination: React.FC<PaginationProps> = ({
         <span className="font-medium">
           {(currentPage - 1) * limit + 1}-{Math.min(currentPage * limit, totalPages * limit)}
         </span>{" "}
-        of <span className="font-medium">{totalPages * limit}</span> results
+        of <span className="font-medium">{totalItems}</span> results
       </p>
       <div className="flex space-x-2">
         <button

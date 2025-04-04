@@ -1,6 +1,7 @@
 "use client";
 
 import { useStore } from "@/components/Providers/StoreContext";
+import { hexToRgba } from "@/configs/utils";
 import { IProductsDetails } from "@/types/product";
 import { useAppStore } from "@/zustand/checkout.store";
 import { Minus, Plus, Zap, Check } from "lucide-react";
@@ -21,7 +22,7 @@ export default function ProductPurchase({ product_data }: Props) {
   const [ErrorModalText, setOpenErrorModalText] = useState<string | null>(null);
 
   const onSetItemTOCart = () => {
-    if(product_data.stock === 0){
+    if (product_data.stock === 0) {
       setOpenErrorModalText(`This product is currently out of stock.`);
       return;
     }
@@ -47,7 +48,12 @@ export default function ProductPurchase({ product_data }: Props) {
 
   return (
     <Fragment>
-      <div className="bg-[#0a0a29] text-white p-6 rounded-xl shadow-lg w-96 space-y-4 relative">
+      <div
+        style={{
+          backgroundImage: `linear-gradient(to top, #f7fafc, ${hexToRgba(store?.customization?.main_color || "#7367f0", 1)})`,
+        }}
+        className="text-white p-6 rounded-xl shadow-lg w-96 space-y-4 relative"
+      >
         {/* Price Section */}
         <div className="flex justify-between items-center">
           <span className="text-gray-400 text-sm">Price</span>
@@ -78,7 +84,10 @@ export default function ProductPurchase({ product_data }: Props) {
               <Minus className="h-5 w-5" />
             </button>
             <span className="px-4">{quantity}</span>
-            <button className="text-white px-2 cursor-pointer" onClick={() => setQuantity((prev) => Math.min(stock||1, prev + 1))}>
+            <button
+              className="text-white px-2 cursor-pointer"
+              onClick={() => setQuantity((prev) => Math.min(stock || 1, prev + 1))}
+            >
               <Plus className="h-5 w-5" />
             </button>
           </div>
@@ -94,12 +103,15 @@ export default function ProductPurchase({ product_data }: Props) {
           Add to Cart
         </button>
         <button
+          style={{
+            backgroundImage: `linear-gradient(to left, ${store?.customization?.main_color || "#7367f0"} ,#000)`,
+          }}
           onClick={() => {
             if (product_data) {
               onSetItemTOCart();
             }
           }}
-          className="w-full cursor-pointer py-2 rounded-lg bg-gradient-to-r from-purple-600 to-black text-white font-semibold"
+          className="w-full cursor-pointer py-2 rounded-full text-white font-semibold"
         >
           Buy Now
         </button>

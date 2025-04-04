@@ -10,6 +10,7 @@ import React, { Fragment, useCallback, useEffect, useState } from "react";
 import ProductHeader from "./SearchBar";
 import Pagination from "../reuseables/Pagination";
 import EmptyProduct from "./EmptyProduct";
+import { hexToRgba } from "@/configs/utils";
 
 const LIMIT = 20;
 
@@ -48,7 +49,7 @@ const AllProducts = () => {
       if (resp.paging) {
         setPaging(resp?.paging);
       }
-      console.log(resp.result, "result");
+      // console.log(resp.result, "result");
     } catch (error) {
       console.log("ERROR", error);
     } finally {
@@ -65,7 +66,12 @@ const AllProducts = () => {
   }, [selectedCategory, search, page]);
 
   return (
-    <section className="bg-gray-200 mx-0 md:mx-6 text-gray-700 px-6 py-12 relative">
+    <section
+      style={{
+        backgroundImage: `linear-gradient(to right, #f7fafc, ${hexToRgba(store?.customization?.main_color || "#7367f0")})`,
+      }}
+      className="mx-0 md:mx-6 text-gray-700 px-0 md:px-6 py-12 relative"
+    >
       <ProductHeader
         selectedCategory={selectedCategory}
         categories={Categories}
@@ -75,7 +81,7 @@ const AllProducts = () => {
         setSearch={setSearch}
       />
 
-      <div className="bg-gray-100 py-6 px-8">
+      <div className=" w-full bg-gray-100 py-6 px-8">
         {/* Display empty component if no store or product */}
 
         {fetchhingProducts ? (
@@ -86,7 +92,7 @@ const AllProducts = () => {
           </div>
         ) : (
           <>
-            <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6">
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {PRODUCTS.map((product) => (
                 <ProductLink key={product.id} product={product} store={store as IStoreDetails} />
               ))}
@@ -100,6 +106,7 @@ const AllProducts = () => {
           limit={LIMIT}
           currentPage={paging.currentPage}
           totalPages={paging.totalpages}
+          totalItems={paging.totalItems}
           onPageChange={(val) => setPage(val)}
         />
       </div>

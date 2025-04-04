@@ -16,7 +16,7 @@ export default function Footer({store}: FooterProps) {
               {/* <li><a href="#" className="hover:text-gray-400">Check security</a></li> */}
               <li>
                 <a href="#" className="hover:text-gray-400">
-                  Track Your Order
+                  Discord
                 </a>
               </li>
             </ul>
@@ -46,7 +46,7 @@ export default function Footer({store}: FooterProps) {
 
           {/* Subscription Section */}
           <div>
-            <h3 className="text-lg font-semibold font-mono mb-3">Subscribe</h3>
+            <h3 className="text-base font-semibold font-mono mb-3">Track Your Order</h3>
             <div className="space-y-3">
               <input
                 style={
@@ -55,17 +55,17 @@ export default function Footer({store}: FooterProps) {
                     // borderColor: store?.customization?.main_color || "#7367f0",
                   }
                 }
-                type="email"
-                placeholder="Email"
-                className="w-full px-4 py-2 bg-gray-800 border-gray-800 text-white rounded-md border focus:outline-none focus:ring-2 focus:ring-blue-500"
+                type="text"
+                placeholder="Enter Order id"
+                className="w-full px-4 py-2 bg-gray-800 border-gray-800 text-white rounded-full border focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
               <button
                 style={{
                   backgroundColor: store?.customization?.main_color || "#7367f0",
                 }}
-                className={`w-full px-4 py-2 text-white rounded-md transition`}
+                className={`w-full px-4 py-2 text-white rounded-full transition`}
               >
-                Subscribe
+                Track
               </button>
             </div>
           </div>

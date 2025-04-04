@@ -2,12 +2,18 @@
 
 import React from "react";
 import { useStore } from "../Providers/StoreContext";
-import { cn } from "@/configs/utils";
+import { cn, hexToRgba } from "@/configs/utils";
+import Link from "next/link";
 
 const HeroSection = () => {
   const { store } = useStore();
   return (
-    <section className="flex mx-6 flex-col md:flex-row items-center justify-between p-10 text-gray-700 bg-gray-100">
+    <section
+      style={{
+        backgroundImage: `linear-gradient(to right, #f7fafc, ${hexToRgba(store?.customization?.main_color || "#7367f0")})`,
+      }}
+      className="flex m-0 md:mx-6 flex-col md:flex-row items-center justify-between p-10 text-gray-700"
+    >
       <div className="max-w-xl">
         <p className="text-sm uppercase text-gray-500 font-semibold">🚀🚀</p>
         <h1 className="text-4xl font-bold  mt-2 capitalize">Welcome to {store?.storename}</h1>
@@ -16,9 +22,9 @@ const HeroSection = () => {
           style={{
             backgroundColor: store?.customization?.main_color || "#7367f0",
           }}
-          className={`mt-6 cursor-pointer text-white px-6 py-3 rounded-lg text-lg font-semibold shadow-md`}
+          className={`mt-6 cursor-pointer text-white px-6 py-3 rounded-full text-lg font-semibold shadow-md`}
         >
-          View Our Products
+          <Link href="/products">View Our Products</Link>
         </button>
       </div>
 

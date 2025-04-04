@@ -8,6 +8,7 @@ import { IProducts } from "@/types/product";
 import ProductLink from "../ServerComponents/ProductLink";
 import { IStoreDetails } from "@/types/store";
 import EmptyProduct from "./products/EmptyProduct";
+import { hexToRgba } from "@/configs/utils";
 
 const BingeProducts = () => {
   const { store } = useStore();
@@ -33,7 +34,12 @@ const BingeProducts = () => {
   }, []);
 
   return (
-    <section className="bg-gray-200 mx-6 text-gray-700 py-12 relative">
+    <section
+      style={{
+        backgroundImage: `linear-gradient(to right, #f7fafc, ${hexToRgba(store?.customization?.main_color || "#7367f0")})`,
+      }}
+      className="m-0 md:mx-6 text-gray-700 py-12 relative"
+    >
       {/* Floating particles effect (optional) */}
       {/* <div className="absolute inset-0 bg-gray-200 bg-opacity-70"></div> */}
 
