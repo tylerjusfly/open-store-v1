@@ -7,7 +7,7 @@ type HeaderProps = {
 
 export default function Header({store}: HeaderProps) {
   return (
-    <header className="flex flex-wrap md:flex-nowrap items-center justify-between mx-6 mt-6 p-4 rounded-t-lg shadow-md text-gray-700 bg-gray-100">
+    <header className="flex flex-wrap md:flex-nowrap items-center justify-between m-0 md:mx-6 md:mt-6 p-4 rounded-t-lg shadow-md text-gray-700 bg-gray-100">
       {/* Left Side - Store Info */}
       <div className="flex items-center space-x-3">
         <img src={store?.display_picture || "/attachment.png"} alt="Store Logo" className="h-12 w-12 rounded-full object-cover" />
@@ -15,7 +15,7 @@ export default function Header({store}: HeaderProps) {
       </div>
 
       {/* Center - Navigation Links */}
-      <nav className="flex items-center space-x-6 font-medium">
+      <nav className="flex items-center my-3 md:mt-0 space-x-6 font-medium">
         <Link href="/" className="hover:text-blue-600 transition">
           Home
         </Link>

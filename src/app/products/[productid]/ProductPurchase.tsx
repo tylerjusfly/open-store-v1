@@ -38,7 +38,8 @@ export default function ProductPurchase({ product_data }: Props) {
       id: product_data.id,
       name: product_data.name,
       quantity: quantity,
-      cost : product_data.amount
+      cost: product_data.amount,
+      img_src: product_data.image_src,
     });
 
     router.push("/checkout");

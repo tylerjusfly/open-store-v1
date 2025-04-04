@@ -1,5 +1,6 @@
 "use client";
 
+import { serverRequest } from "@/configs/serverApi";
 import { IpaymentMethod } from "@/types/store";
 import IconifyIcon from "@/uis/Icon";
 import ErrorModalWithRouter from "@/uis/Icon/modals/ErrorModalWithRouter";
@@ -13,15 +14,16 @@ const CheckoutPage = () => {
   const router = useRouter();
   const [paymentMethod, setPaymentMethod] = useState<IpaymentMethod | null>(null);
   const cartProduct = getItemFromStore();
-   const setItemToCart = useAppStore((state) => state.setStoreItem);
+  const setItemToCart = useAppStore((state) => state.setStoreItem);
   const [ErrorModalText, setOpenErrorModalText] = useState<string | null>(null);
   const [email, setEmail] = useState("");
+  const [proceeding, setProceeding] = useState(false);
 
   const validateEmail = (email: string) => {
     return /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email);
   };
 
-  const pushtoPaymentScreen = () => {
+  const pushtoPaymentScreen = async () => {
     if (!cartProduct) {
       setOpenErrorModalText("An Error Occured, Failed to proceed");
       return;
@@ -44,18 +46,29 @@ const CheckoutPage = () => {
     setItemToCart({
       ...cartProduct,
       paymentMethod: paymentMethod,
-      buyer_email: email
+      buyer_email: email,
     });
 
-    if (Object.values(cartProduct).some(value => value === "")) {
+    if (Object.values(cartProduct).some((value) => value === "")) {
       setOpenErrorModalText("An Error Occurred, Failed to proceed");
       return;
     }
 
     // Call Endpoint to check if user has not been added to blacklist
-
-    console.log("all passed", cartProduct)
-
+    try {
+      setProceeding(true);
+      const payload = { data: email, type: "Email" };
+      const resp = await serverRequest(`blacklists/check`, "POST", payload);
+      // setProceeding(false);
+      router.push("/checkout/pay");
+      // console.log("all passed", cartProduct);
+    } catch (error: any) {
+      console.log(error, "err");
+      setOpenErrorModalText(
+        error?.message || "Checkout failed. Please create a ticket to report this issue to the store owner ASAP."
+      );
+      setProceeding(false);
+    }
   };
 
   return (
@@ -136,7 +149,11 @@ const CheckoutPage = () => {
                 className={`w-full disabled:cursor-not-allowed flex cursor-pointer justify-center gap-4 px-4 py-2 text-white rounded-md transition`}
               >
                 <span className="self-center font-bold"> Proceed to payment with {paymentMethod}</span>
-                <IconifyIcon icon="mynaui:forward-solid" color="white" className="w-6 h-6 self-center rounded-md" />
+                {proceeding ? (
+                  <IconifyIcon icon="line-md:loading-loop" color="white" className="w-6 h-6 self-center rounded-md" />
+                ) : (
+                  <IconifyIcon icon="mynaui:forward-solid" color="white" className="w-6 h-6 self-center rounded-md" />
+                )}
               </button>
             </div>
           </div>

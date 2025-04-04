@@ -20,9 +20,13 @@ const Pagination: React.FC<PaginationProps> = ({
   };
 
   return (
-    <div className="flex items-center justify-between px-4 py-3 mt-4">
+    <div className="flex flex-col gap-4 md:flex-row items-center justify-between px-4 py-3 mt-4">
       <p className="text-sm text-gray-700">
-        Viewing <span className="font-medium">{(currentPage - 1) * limit + 1}-{Math.min(currentPage * limit, totalPages * limit)}</span> of <span className="font-medium">{totalPages * limit}</span> results
+        Viewing{" "}
+        <span className="font-medium">
+          {(currentPage - 1) * limit + 1}-{Math.min(currentPage * limit, totalPages * limit)}
+        </span>{" "}
+        of <span className="font-medium">{totalPages * limit}</span> results
       </p>
       <div className="flex space-x-2">
         <button

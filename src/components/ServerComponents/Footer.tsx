@@ -6,7 +6,7 @@ type FooterProps = {
 
 export default function Footer({store}: FooterProps) {
     return (
-      <footer className="text-gray-700 bg-gray-100 mx-6 mb-6 p-8 rounded-b-lg">
+      <footer className="text-gray-700 bg-gray-100 m-0 md:mx-6 md:mb-6 p-8 rounded-b-lg">
         <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
           {/* About Us Section */}
           <div>
@@ -72,7 +72,7 @@ export default function Footer({store}: FooterProps) {
         </div>
 
         {/* Footer Bottom */}
-        <div className="flex justify-between items-center mt-8 border-t border-gray-700 pt-4">
+        <div className="flex justify-between flex-col gap-5 md:flex-row items-center mt-8 border-t border-gray-700 pt-4">
           <div className="flex space-x-4">
             <div className="w-16 h-4 bg-gray-800 rounded-md"></div>
             <div className="w-16 h-4 bg-gray-800 rounded-md"></div>
@@ -82,11 +82,6 @@ export default function Footer({store}: FooterProps) {
           {/* Language Selector */}
           <div className="flex items-center space-x-2">
             <span className="text-lg font-bold font-mono">🌍Powered By SELLIT</span>
-            {/* <select className="bg-gray-800 text-white p-2 rounded-md border border-gray-700 focus:outline-none">
-              <option>English</option>
-              <option>Spanish</option>
-              <option>French</option>
-            </select> */}
           </div>
         </div>
       </footer>

@@ -7,6 +7,7 @@ type IStoreItem = {
   name: string;
   quantity: number;
   cost: number;
+  img_src: string;
   paymentMethod?: IpaymentMethod;
   buyer_email?: string;
 };

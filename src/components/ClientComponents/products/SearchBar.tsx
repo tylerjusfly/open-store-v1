@@ -17,7 +17,7 @@ export default function ProductHeader({ categories, onCategoryChange, selectedCa
   };
 
   return (
-    <div className="bg-gray-100 py-6 px-8 flex items-center justify-between">
+    <div className="bg-gray-100 py-6 px-8 flex-col md:flex-row gap-5 flex items-center justify-between">
       {/* <div>
         <h1 className="text-2xl font-semibold text-gray-900 mt-1">
           Explore All Products
@@ -25,15 +25,15 @@ export default function ProductHeader({ categories, onCategoryChange, selectedCa
       </div> */}
 
       {/* Search Input */}
-      <div className="flex items-center border border-gray-300 rounded-md p-2 w-full max-w-md">
+      <div className="flex items-center border border-gray-300 rounded-md p-2 w-full max-w-full">
         <Search className="text-gray-400 h-5 w-5 mr-2" />
         <input
           type="text"
-          onChange={(e)=> {
-            if(e.target.value.length > 2){
-                setSearch(e.target.value)
-            }else if(e.target.value.length > 0){
-                setSearch("")
+          onChange={(e) => {
+            if (e.target.value.length > 2) {
+              setSearch(e.target.value);
+            } else if (e.target.value.length > 0) {
+              setSearch("");
             }
           }}
           placeholder="Search for products or items"
@@ -45,7 +45,7 @@ export default function ProductHeader({ categories, onCategoryChange, selectedCa
       <select
         value={selectedCategory}
         onChange={handleCategoryChange}
-        className="border border-gray-300 rounded-md p-2 text-gray-600 outline-none"
+        className="border border-gray-300 rounded-md max-w-full p-2 text-gray-600 outline-none"
       >
         <option value="">All Categories</option>
         {categories.map((category) => (

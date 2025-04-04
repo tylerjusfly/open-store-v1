@@ -65,7 +65,7 @@ const AllProducts = () => {
   }, [selectedCategory, search, page]);
 
   return (
-    <section className="bg-gray-200 mx-6 text-gray-700 px-6 py-12 relative">
+    <section className="bg-gray-200 mx-0 md:mx-6 text-gray-700 px-6 py-12 relative">
       <ProductHeader
         selectedCategory={selectedCategory}
         categories={Categories}
