@@ -2,7 +2,7 @@ import { IpaymentMethod } from "@/types/store";
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
 
-type IStoreItem = {
+export type IStoreItem = {
   id: string;
   name: string;
   quantity: number;

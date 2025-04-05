@@ -1,22 +1,68 @@
-"use client"
+"use client";
 
-import { useStore } from '@/components/Providers/StoreContext';
+import { useStore } from "@/components/Providers/StoreContext";
+import { APIResponse, serverRequest } from "@/configs/serverApi";
 import { hexToRgba } from "@/configs/utils";
+import IconifyIcon from "@/uis/Icon";
 import ErrorModalWithRouter from "@/uis/Icon/modals/ErrorModalWithRouter";
 import { getItemFromStore } from "@/zustand/checkout.store";
 import { ChevronLeft } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import React from "react";
+import React, { useState } from "react";
+import LeftSide from "./LeftSide";
+
+type IOrderReq = { id: string };
+type IPaymentReq = { url: string };
 
 const Pay = () => {
   const { store } = useStore();
   const cartProduct = getItemFromStore();
   const router = useRouter();
+  const [proceedingOrder, setProceedingOrder] = useState(false);
 
   if (!cartProduct) {
     return <ErrorModalWithRouter data={"No available to product to pay for."} setOpenErrorModalText={() => {}} />;
   }
+
+  const doCreateOrder = async () => {
+    try {
+      setProceedingOrder(true);
+      const OrderPayload = {
+        productid: cartProduct.id,
+        qty: cartProduct.quantity,
+        payment_gateway: cartProduct.paymentMethod,
+        order_from: cartProduct.buyer_email,
+      };
+      const response: APIResponse<IOrderReq> = await serverRequest("orders", "POST", OrderPayload);
+
+      if (response.success) {
+        const paymentPayload = { orderid: response.result.id };
+
+        if (cartProduct.paymentMethod === "stripe") {
+          const paymentresponse: APIResponse<IPaymentReq> = await serverRequest("stripe/vendor/payment", "POST", paymentPayload);
+
+          router.push(`/orders/${response.result.id}`);
+          window.open(paymentresponse.result.url, "_blank");
+        }
+
+        if (cartProduct.paymentMethod === "cashapp") {
+          const paymentresponse: APIResponse<IPaymentReq> = await serverRequest(
+            "stripe/cashapp/vendor/payment",
+            "POST",
+            paymentPayload
+          );
+
+          router.push(`/orders/${response.result.id}`);
+          window.open(paymentresponse.result.url, "_blank");
+        }
+      }
+    } catch (error) {
+      console.log("Err ==>", error);
+    } finally {
+      setProceedingOrder(false);
+    }
+  };
 
   return (
     <div className="bg-gray-100 mx-0 md:mx-6 text-gray-700 p-6">
@@ -32,70 +78,7 @@ const Pay = () => {
       </div>
 
       <div className="max-w-full mt-5 mx-auto grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div className="space-y-5">
-          {/* Order Summary */}
-          <div
-            // style={{
-            //   backgroundImage: `linear-gradient(to left, #f7fafc, ${hexToRgba(
-            //     store?.customization?.main_color || "#7367f0",
-            //     1
-            //   )})`,
-            // }}
-            style={{
-              backgroundImage: `linear-gradient(to right, ${store?.customization?.main_color || "#7367f0"} ,#000)`,
-            }}
-            className="text-white p-6 rounded-lg"
-          >
-            <h2 className="text-xl font-bold">Order summary</h2>
-            <div
-              style={{
-                backgroundImage: `linear-gradient(to left, ${hexToRgba("#333")} ,#000)`,
-              }}
-              className="p-4 rounded-lg mt-4"
-            >
-              <p className="font-medium">{cartProduct?.buyer_email || ""}</p>
-              <p className="text-sm text-gray-400">We’ll instantly deliver the product to this email address</p>
-            </div>
-          </div>
-
-          {/* Payment Method */}
-          <div
-            style={{
-              backgroundImage: `linear-gradient(to right, ${store?.customization?.main_color || "#7367f0"} ,#000)`,
-            }}
-            className="text-white p-6 rounded-lg"
-          >
-            <h2 className="text-xl font-bold">Payment method</h2>
-            <div className="flex gap-4 mt-4">
-              <div
-                style={{
-                  backgroundImage: `linear-gradient(to left, ${hexToRgba("#333")} ,#000)`,
-                }}
-                className="flex-1 p-4 rounded-lg border-none cursor-pointer"
-              >
-                <p className="font-medium">💳 {cartProduct.paymentMethod}</p>
-                <p className="text-sm">${cartProduct.cost.toFixed(2)}</p>
-              </div>
-            </div>
-          </div>
-          {/* Product Summary */}
-          <div
-            style={{
-              backgroundImage: `linear-gradient(to right, ${store?.customization?.main_color || "#7367f0"} ,#000)`,
-            }}
-            className="text-black p-6 rounded-lg flex items-center gap-4"
-          >
-            <div className="bg-[#10082A] p-6 rounded-lg w-20 h-20 flex items-center justify-center">
-              <Image src={cartProduct?.img_src || "/attachment.png"} alt={`${cartProduct.name} image`} width={100} height={100} />
-            </div>
-            <div>
-              <h3 className="font-bold text-ellipsis">{cartProduct.name}</h3>
-              <p className="text-sm text-white">
-                ${cartProduct.cost.toFixed(2)} • {cartProduct.quantity} item • Instant Email Delivery
-              </p>
-            </div>
-          </div>
-        </div>
+        <LeftSide cartProduct={cartProduct} store={store} />
 
         <div className="space-y-5">
           {/* Order Summary */}
@@ -110,12 +93,16 @@ const Pay = () => {
               <span>${(cartProduct.cost * cartProduct.quantity).toFixed(2)}</span>
             </div>
             <button
+              onClick={doCreateOrder}
               style={{
-                backgroundImage: `linear-gradient(to left, ${store?.customization?.main_color || "#7367f0"} ,#000)`,
+                backgroundImage: `linear-gradient(to left, ${store?.customization?.main_color || "#7367f0"} ,#555)`,
               }}
-              className="w-full cursor-pointer mt-6 py-3 rounded-full font-bold"
+              className="w-full cursor-pointer mt-6 py-3 rounded-full flex justify-center gap-3 items-center"
             >
-              Pay
+              <span className="font-bold">Pay</span>
+              {proceedingOrder && (
+                <IconifyIcon icon="line-md:loading-loop" color="white" className="w-6 h-6 self-center rounded-md" />
+              )}
             </button>
             <p className="text-xs text-gray-400 mt-2 text-center">
               By tapping "Pay", you agree to our <span className="text-purple-400 cursor-pointer">Terms of Service</span>
@@ -131,11 +118,12 @@ const Pay = () => {
             />
             <button
               style={{
-                backgroundColor: store?.customization?.main_color || "#7367f0",
+                backgroundImage: `linear-gradient(to right, ${store?.customization?.main_color || "#7367f0"} ,#555)`,
               }}
-              className="px-4 py-2 rounded-full font-bold cursor-pointer"
+              className="px-4 py-2 rounded-full cursor-pointer flex justify-center gap-1 items-center"
             >
-              Apply
+              <span className="font-bold text-white">Apply</span>
+              <IconifyIcon icon="line-md:loading-loop" color="white" className="w-6 h-6 self-center rounded-md" />
             </button>
           </div>
         </div>
@@ -144,4 +132,4 @@ const Pay = () => {
   );
 };
 
-export default Pay
+export default Pay;
