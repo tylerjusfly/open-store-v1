@@ -10,6 +10,7 @@ export type IStoreItem = {
   img_src: string;
   paymentMethod?: IpaymentMethod;
   buyer_email?: string;
+  coupon_id: string | undefined;
 };
 
 interface StoreState {

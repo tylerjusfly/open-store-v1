@@ -4,9 +4,10 @@ import React from "react";
 type ErrorModalWithRouterProps = {
   data: string;
   setOpenErrorModalText: (val: string | null) => void;
+  btn_msg?: string;
 };
 
-const ErrorModalWithRouter = ({ data, setOpenErrorModalText }: ErrorModalWithRouterProps) => {
+const ErrorModalWithRouter = ({ data, setOpenErrorModalText, btn_msg }: ErrorModalWithRouterProps) => {
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-slate-900/20 backdrop-blur">
       <div className="bg-white p-10 rounded-lg shadow-lg w-96 text-center relative">
@@ -16,11 +17,11 @@ const ErrorModalWithRouter = ({ data, setOpenErrorModalText }: ErrorModalWithRou
         {/* Button */}
         <button
           onClick={() => {
-            setOpenErrorModalText(null)
+            setOpenErrorModalText(null);
           }}
           className="mt-6 w-full cursor-pointer bg-red-500 text-white py-2 rounded-lg font-medium hover:bg-red-600 transition"
         >
-          Back to product
+          {btn_msg ? btn_msg : "Back to product"}
         </button>
       </div>
     </div>

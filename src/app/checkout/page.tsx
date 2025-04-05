@@ -7,7 +7,7 @@ import { IpaymentMethod } from "@/types/store";
 import IconifyIcon from "@/uis/Icon";
 import ErrorModalWithRouter from "@/uis/Icon/modals/ErrorModalWithRouter";
 import { getItemFromStore, useAppStore } from "@/zustand/checkout.store";
-import { BadgeDollarSign, ChevronLeft } from "lucide-react";
+import { ChevronLeft } from "lucide-react";
 import { useRouter } from "next/navigation";
 
 import React, { Fragment, useState } from "react";
