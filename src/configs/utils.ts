@@ -41,3 +41,22 @@ export const hexToRgba = (hex: string, opacity = 0.6) => {
   return `rgba(${r}, ${g}, ${b}, ${opacity})`;
 };
   
+
+export const formatDate = (dateString: string) => {
+  const date = new Date(dateString);
+
+  const options: any = {
+    weekday: "long",
+    month: "numeric",
+    day: "numeric",
+    year: "2-digit",
+    hour: "numeric",
+    minute: "numeric",
+    hour12: true,
+  };
+
+  const formattedDate = new Intl.DateTimeFormat("en-US", options).format(date);
+
+  return formattedDate;
+};
+

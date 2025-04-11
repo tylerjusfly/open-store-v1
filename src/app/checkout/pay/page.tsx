@@ -45,6 +45,7 @@ const Pay = () => {
         qty: cartProduct.quantity,
         payment_gateway: cartProduct.paymentMethod,
         order_from: cartProduct.buyer_email,
+        coupon_id: cartProduct?.coupon_id || "",
       };
       const response: APIResponse<IOrderReq> = await serverRequest("orders", "POST", OrderPayload);
 
@@ -79,8 +80,10 @@ const Pay = () => {
     try {
       const payload = {
         store_id: store?.id,
-        coupon_id: couponCode,
+        coupon_code: couponCode,
         product_id: cartProduct.id,
+        qty: cartProduct.quantity,
+        payment_gateway: cartProduct.paymentMethod || "cashapp",
       };
       setProceedingCoupon(true);
       const resp: APIResponse<ICouponReq> = await serverRequest("coupons/check", "POST", payload);
@@ -92,10 +95,14 @@ const Pay = () => {
           coupon_id: resp.result.id || undefined,
         });
 
+        console.log(cartProduct, "cart");
+
+        setProceedingCoupon(false);
+
         // Open a successmodal to show 20% off
       }
     } catch (error: any) {
-      setOpenErrorModalText(error?.message || "This Coupon Is Invalid.");
+      setOpenErrorModalText(error?.message || "This Coupon Is Not Valid.");
       setProceedingCoupon(false);
     }
   };
@@ -133,7 +140,7 @@ const Pay = () => {
                 onClick={doCreateOrder}
                 disabled={proceedingOrder}
                 style={{
-                  backgroundImage: `linear-gradient(to left, ${store?.customization?.main_color || "#7367f0"} ,#555)`,
+                  backgroundImage: `linear-gradient(to left, ${store?.main_color || "#7367f0"} ,#555)`,
                 }}
                 className="w-full cursor-pointer mt-6 py-3 rounded-full flex justify-center gap-3 items-center"
               >
@@ -159,7 +166,7 @@ const Pay = () => {
                 disabled={proceedingCoupon}
                 onClick={checkCoupon}
                 style={{
-                  backgroundImage: `linear-gradient(to right, ${store?.customization?.main_color || "#7367f0"} ,#555)`,
+                  backgroundImage: `linear-gradient(to right, ${store?.main_color || "#7367f0"} ,#555)`,
                 }}
                 className="px-4 py-2 rounded-full cursor-pointer flex justify-center gap-1 items-center"
               >

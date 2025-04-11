@@ -36,7 +36,7 @@ const BingeProducts = () => {
   return (
     <section
       style={{
-        backgroundImage: `linear-gradient(to right, #f7fafc, ${hexToRgba(store?.customization?.main_color || "#7367f0")})`,
+        backgroundImage: `linear-gradient(to right, #f7fafc, ${hexToRgba(store?.main_color || "#7367f0")})`,
       }}
       className="m-0 md:mx-6 text-gray-700 py-12 relative"
     >

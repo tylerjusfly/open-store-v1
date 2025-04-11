@@ -1,11 +1,9 @@
 import { APIResponse, serverRequest } from "@/configs/serverApi";
+import { IOrderDetails } from "@/types/orders";
+import SellitReceipt from "./OrderReceipt";
 
 type Props = {
   params: Promise<{ orderid: string }>;
-};
-
-type IOrderDetails = {
-  id: string;
 };
 
 const fetchOrderDetails = async (id: string) => {
@@ -22,5 +20,5 @@ export default async function DisplayOrders({ params }: Props) {
   const orderid = (await params).orderid;
   const order_data = await fetchOrderDetails(orderid);
 
-  return <div>{JSON.stringify(order_data)}</div>;
+  return <div>{order_data ? <SellitReceipt data={order_data} /> : <h1>NO ORDER</h1>}</div>;
 }

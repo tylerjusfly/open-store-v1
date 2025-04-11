@@ -50,7 +50,7 @@ export default function ProductPurchase({ product_data }: Props) {
     <Fragment>
       <div
         style={{
-          backgroundImage: `linear-gradient(to top, #f7fafc, ${hexToRgba(store?.customization?.main_color || "#7367f0", 1)})`,
+          backgroundImage: `linear-gradient(to top, #f7fafc, ${hexToRgba(store?.main_color || "#7367f0", 1)})`,
         }}
         className="text-white p-6 rounded-xl shadow-lg w-96 space-y-4 relative"
       >
@@ -96,7 +96,7 @@ export default function ProductPurchase({ product_data }: Props) {
         {/* Buttons */}
         <button
           style={{
-            color: store?.customization?.main_color || "#7367f0",
+            color: store?.main_color || "#7367f0",
           }}
           className="w-full py-2 rounded-lg bg-white text-purple-900 font-semibold"
         >
@@ -104,7 +104,7 @@ export default function ProductPurchase({ product_data }: Props) {
         </button>
         <button
           style={{
-            backgroundImage: `linear-gradient(to left, ${store?.customization?.main_color || "#7367f0"} ,#000)`,
+            backgroundImage: `linear-gradient(to left, ${store?.main_color || "#7367f0"} ,#000)`,
           }}
           onClick={() => {
             if (product_data) {

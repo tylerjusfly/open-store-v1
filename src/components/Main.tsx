@@ -17,12 +17,12 @@ export default async function Main({ children }: MainProps) {
   const hostname = (await headersList).get("host");
 
   // const subdomain = extractSubdomain(hostname|| "fanshop.sellit.app");
-  const subdomain = extractSubdomain("fanshop.sellit.app");
+  const subdomain = extractSubdomain("shopify-dev.sellit.app");
 
   try {
     const data: APIResponse<IStoreDetails> = await serverRequest(`store/public?storename=${subdomain}`, "GET", null, "no-cache");
 
-    // console.log(data, "data");
+    console.log(data, "data");
 
     return (
       <StoreProvider store={data?.result}>

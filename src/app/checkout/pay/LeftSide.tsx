@@ -19,7 +19,7 @@ const LeftSide = ({ cartProduct, store }: LeftProps) => {
       <div className="space-y-5">
         <div
           style={{
-            backgroundImage: `linear-gradient(to right, ${store?.customization?.main_color || "#7367f0"} ,#555)`,
+            backgroundImage: `linear-gradient(to right, ${store?.main_color || "#7367f0"} ,#555)`,
           }}
           className="text-white p-6 rounded-lg"
         >
@@ -38,7 +38,7 @@ const LeftSide = ({ cartProduct, store }: LeftProps) => {
         {/* Payment Method */}
         <div
           style={{
-            backgroundImage: `linear-gradient(to right, ${store?.customization?.main_color || "#7367f0"} ,#555)`,
+            backgroundImage: `linear-gradient(to right, ${store?.main_color || "#7367f0"} ,#555)`,
           }}
           className="text-white p-6 rounded-lg"
         >
@@ -65,7 +65,7 @@ const LeftSide = ({ cartProduct, store }: LeftProps) => {
         {/* Product Summary */}
         <div
           style={{
-            backgroundImage: `linear-gradient(to right, ${store?.customization?.main_color || "#7367f0"} ,#555)`,
+            backgroundImage: `linear-gradient(to right, ${store?.main_color || "#7367f0"} ,#555)`,
           }}
           className="text-black p-6 rounded-lg flex items-center gap-4"
         >

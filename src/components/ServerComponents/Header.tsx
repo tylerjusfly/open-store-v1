@@ -6,6 +6,7 @@ type HeaderProps = {
 }
 
 export default function Header({store}: HeaderProps) {
+ 
   return (
     <header className="m-0 md:mx-6 md:mt-6 p-4 rounded-t-lg text-gray-700 bg-gray-100">
       {/* Left Side - Store Info */}
@@ -20,7 +21,7 @@ export default function Header({store}: HeaderProps) {
 
         <button
           style={{
-            backgroundColor: store?.customization?.main_color || "#7367f0",
+            backgroundColor: store?.main_color || "#7367f0",
           }}
           className={`px-5 py-2 text-white rounded-full transition`}
         >

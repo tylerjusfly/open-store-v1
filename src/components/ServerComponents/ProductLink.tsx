@@ -14,8 +14,8 @@ const ProductLink = ({ product, store }: ProductLinkProps) => {
     <Link
       href={`/products/${product.id}`}
       style={{
-        borderColor: store?.customization?.main_color || "#7367f0",
-        backgroundColor: store?.customization?.main_color || "#7367f0",
+        borderColor: store?.main_color || "#7367f0",
+        backgroundColor: store?.main_color || "#7367f0",
       }}
       key={product.id}
       className={cn("border-2 rounded-lg p-5 shadow-lg relative")}

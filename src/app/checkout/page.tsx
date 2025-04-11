@@ -28,7 +28,8 @@ const CheckoutPage = () => {
 
   const pushtoPaymentScreen = async () => {
     if (!cartProduct) {
-      setOpenErrorModalText("An Error Occured, Failed to proceed");
+      setOpenErrorModalText("An Error Occured, Redirecting back to home.");
+      router.push("/");
       return;
     }
     if (!paymentMethod) {
@@ -78,7 +79,7 @@ const CheckoutPage = () => {
     <Fragment>
       <div
         style={{
-          backgroundImage: `linear-gradient(to right, #f7fafc, ${hexToRgba(store?.customization?.main_color || "#7367f0", 0.7)})`,
+          backgroundImage: `linear-gradient(to right, #f7fafc, ${hexToRgba(store?.main_color || "#7367f0", 0.7)})`,
         }}
         className="flex m-0 md:mx-6 items-center justify-center"
       >
@@ -151,7 +152,7 @@ const CheckoutPage = () => {
                 onClick={pushtoPaymentScreen}
                 disabled={paymentMethod === null}
                 style={{
-                  backgroundImage: `linear-gradient(to left, ${store?.customization?.main_color || "#7367f0"} ,#000)`,
+                  backgroundImage: `linear-gradient(to left, ${store?.main_color || "#7367f0"} ,#000)`,
                 }}
                 className={`w-full disabled:cursor-not-allowed flex cursor-pointer justify-center gap-4 px-4 py-2 text-white rounded-full transition`}
               >

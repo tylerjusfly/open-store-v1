@@ -68,7 +68,7 @@ const AllProducts = () => {
   return (
     <section
       style={{
-        backgroundImage: `linear-gradient(to right, #f7fafc, ${hexToRgba(store?.customization?.main_color || "#7367f0")})`,
+        backgroundImage: `linear-gradient(to right, #f7fafc, ${hexToRgba(store?.main_color || "#7367f0")})`,
       }}
       className="mx-0 md:mx-6 text-gray-700 px-0 md:px-6 py-12 relative"
     >
